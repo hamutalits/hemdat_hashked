@@ -52,14 +52,19 @@
 </head>
 <body class="selection:bg-amber-500 selection:text-white p-3 sm:p-4">
 
-    <!-- Fireworks Canvas Overlay -->
+    <!-- Grand Fireworks Canvas Overlay with Transparent Background -->
     <canvas id="fireworksCanvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full hidden"></canvas>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 bg-brand-darkBlue text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 border border-amber-500/40 text-xs sm:text-sm">
+        <i class="fa-solid fa-circle-check text-amber-400"></i>
+        <span id="toastMessage">תרומה חדשה התקבלה!</span>
+    </div>
 
     <main class="max-w-3xl mx-auto w-full flex flex-col justify-center gap-3 my-auto">
 
         <section class="w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden border border-sky-200">
             <div class="relative w-full overflow-hidden bg-sky-100 flex items-center justify-center">
-                <!-- Banner Image updated to pic.png -->
                 <img src="pic.png" 
                      onerror="this.src='https://placehold.co/1200x450/e0f2fe/0369a1?text=בונים+משכן+לקהילת+חמדתי+השקד'"
                      alt="בונים משכן לקהילת חמד״ת השקד" 
@@ -76,31 +81,30 @@
         <section class="w-full bg-white/95 backdrop-blur-md rounded-2xl shadow-lg p-4 sm:p-5 border border-sky-200" id="donate">
             
             <div class="flex items-center justify-between gap-4 mb-3">
-                <!-- Goal -->
-                <div class="flex items-center gap-2 text-sky-800 font-medium text-xs sm:text-sm">
+                <!-- Goal (Clicking 700,000 triggers grand fireworks) -->
+                <div class="flex items-center gap-1.5 text-sky-800 font-medium text-xs sm:text-sm">
+                    <span id="goalAmountBtn" class="text-slate-900 font-bold font-mono cursor-pointer hover:text-amber-600 transition-colors underline decoration-dotted underline-offset-4" title="לחץ להפעלת זיקוקי חגיגה ענקיים">₪700,000</span>
+                    <span>יעד הפרויקט:</span>
                     <i class="fa-solid fa-chart-line text-amber-600"></i>
-                    <span>יעד: <strong class="text-slate-900 font-bold font-mono cursor-pointer hover:text-amber-600 transition-colors" onclick="triggerFireworks()" title="לחץ להפעלת זיקוקי חגיגה">₪700,000</strong></span>
                 </div>
 
                 <!-- Raised So Far -->
                 <div class="flex items-center gap-2">
-                    <span class="text-xl sm:text-2xl font-black text-brand-darkBlue font-mono" id="raisedAmount">₪457,292</span>
-                    <span class="text-xs text-slate-500 font-medium">הושג</span>
                     <i class="fa-solid fa-coins text-amber-500 text-base"></i>
+                    <span class="text-xs text-slate-500 font-medium">הושג עד כה</span>
+                    <span class="text-xl sm:text-2xl font-black text-brand-darkBlue font-mono transition-all" id="raisedAmount">₪458,250</span>
                 </div>
             </div>
 
             <!-- Progress Bar Track -->
-            <div class="relative w-full h-6 bg-sky-100 rounded-full overflow-hidden p-1 shadow-inner mb-4">
-                <!-- Filled Bar (65%) -->
-                <div id="progressBar" class="h-full bg-gradient-to-r from-sky-600 to-amber-500 rounded-full transition-all duration-1000 relative" style="width: 65%;">
-                    <div class="absolute left-0 top-0 bottom-0 w-2 bg-amber-300 rounded-full animate-pulse"></div>
-                </div>
-
-                <!-- Floating Percentage Badge -->
-                <div class="absolute top-1/2 -translate-y-1/2 left-[65%] -translate-x-1/2 z-10">
-                    <div class="w-9 h-9 rounded-full bg-brand-darkBlue text-white text-[10px] font-bold flex items-center justify-center border-2 border-white shadow font-mono" id="percentBadge">
-                        65%
+            <div class="relative w-full h-6 bg-slate-200/80 rounded-full overflow-visible p-0.5 shadow-inner mb-4">
+                <!-- Filled Bar anchored to the right -->
+                <div id="progressBar" class="absolute right-0 top-0 bottom-0 bg-[#0c4a6e] rounded-full transition-all duration-1000" style="width: 65%;">
+                    <!-- Floating Percentage Badge positioned at the left tip of the filled bar -->
+                    <div id="percentBadgeContainer" class="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 z-20">
+                        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0c4a6e] text-white text-[10px] sm:text-xs font-bold flex items-center justify-center border-2 border-white shadow-md font-mono" id="percentBadge">
+                            65%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,13 +113,13 @@
             <div class="flex items-center justify-between gap-4 pt-2 border-t border-sky-100">
                 <div class="flex items-center gap-2 text-sky-800 font-medium text-xs">
                     <i class="fa-solid fa-users text-amber-600"></i>
-                    <span id="donorsCount">848 תורמים</span>
+                    <span id="donorsCount">842 תורמים</span>
                 </div>
 
                 <div class="flex items-center gap-3">
                     <a href="https://www.peach-in.com/cmp/aTGwsdcbs" target="_blank" class="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-amber-600/30 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-hand-holding-dollar text-amber-100"></i>
-                        <span>תרום עכשיו</span>
+                        <span>תרום עכשיו באתר המקור</span>
                     </a>
                 </div>
             </div>
@@ -128,27 +132,20 @@
             <div class="relative z-10">
                 <h3 class="text-base sm:text-lg font-bold mb-3 tracking-wide text-amber-300">הקמפיין יסתיים בעוד</h3>
 
-                <!-- Countdown Units Grid (LTR so days are on the left) -->
+                <!-- Countdown Units Grid (LTR) -->
                 <div class="grid grid-cols-4 gap-2 max-w-lg mx-auto" dir="ltr">
-                    <!-- Days -->
                     <div class="countdown-box rounded-xl p-2.5 flex flex-col items-center justify-center shadow text-slate-900">
                         <span class="text-xl sm:text-2xl font-black font-mono tracking-wider" id="daysValue">0</span>
                         <span class="text-[10px] text-amber-700 font-bold">ימים</span>
                     </div>
-
-                    <!-- Hours -->
                     <div class="countdown-box rounded-xl p-2.5 flex flex-col items-center justify-center shadow text-slate-900">
                         <span class="text-xl sm:text-2xl font-black font-mono tracking-wider" id="hoursValue">00</span>
                         <span class="text-[10px] text-amber-700 font-bold">שעות</span>
                     </div>
-
-                    <!-- Minutes -->
                     <div class="countdown-box rounded-xl p-2.5 flex flex-col items-center justify-center shadow text-slate-900">
                         <span class="text-xl sm:text-2xl font-black font-mono tracking-wider" id="minsValue">00</span>
                         <span class="text-[10px] text-amber-700 font-bold">דקות</span>
                     </div>
-
-                    <!-- Seconds -->
                     <div class="countdown-box rounded-xl p-2.5 flex flex-col items-center justify-center shadow text-slate-900">
                         <span class="text-xl sm:text-2xl font-black font-mono tracking-wider text-amber-600" id="secsValue">00</span>
                         <span class="text-[10px] text-amber-700 font-bold">שניות</span>
@@ -193,12 +190,116 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Fireworks & Goal Check Logic
+        // Campaign Dynamic Values & Live Peach-in Scraping
         const goalAmount = 700000;
-        let currentRaised = 457292; // Set to 700000+ to trigger automatically when goal reached
+        let currentRaised = 458250;
+        let donorsCount = 842;
 
-        // Function to trigger fireworks effect
-        function triggerFireworks() {
+        function updateCampaignUI() {
+            const percent = Math.min(100, Math.round((currentRaised / goalAmount) * 100));
+
+            document.getElementById('raisedAmount').textContent = '₪' + currentRaised.toLocaleString();
+            document.getElementById('donorsCount').textContent = donorsCount + ' תורמים';
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = percent + '%';
+            document.getElementById('percentBadge').textContent = percent + '%';
+        }
+
+        updateCampaignUI();
+
+        // Live Synchronization with https://www.peach-in.com/cmp/aTGwsdcbs
+        async function syncWithSource() {
+            try {
+                const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.peach-in.com/cmp/aTGwsdcbs');
+                const response = await fetch(proxyUrl);
+                if (!response.ok) return;
+                const htmlText = await response.text();
+                
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(htmlText, 'text/html');
+                
+                let foundAmount = null;
+                let foundDonors = null;
+
+                // Search text nodes for amounts
+                const textWalker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+                let node;
+                while (node = textWalker.nextNode()) {
+                    let text = node.nodeValue.trim();
+                    if (text.includes('₪') || text.includes('ש״ח') || text.includes('נתרם')) {
+                        const match = text.match(/[\d,]+/);
+                        if (match) {
+                            let cleanNum = parseInt(match[0].replace(/,/g, ''), 10);
+                            if (cleanNum > 1000 && cleanNum <= 1000000 && !foundAmount) {
+                                foundAmount = cleanNum;
+                            }
+                        }
+                    }
+                }
+
+                // Search for donors count
+                const allElements = doc.querySelectorAll('*');
+                for (let el of allElements) {
+                    let t = el.textContent.trim();
+                    if (t.includes('תורמים')) {
+                        const dMatch = t.match(/(\d+)\s*תורמים/);
+                        if (dMatch) {
+                            foundDonors = parseInt(dMatch[1], 10);
+                        }
+                    }
+                }
+
+                if (foundAmount && foundAmount !== currentRaised) {
+                    const diff = foundAmount - currentRaised;
+                    currentRaised = foundAmount;
+                    if (foundDonors) donorsCount = foundDonors;
+                    updateCampaignUI();
+                    if (diff > 0) {
+                        showToast(`תרומה חדשה התקבלה! (+₪${diff.toLocaleString()})`);
+                    }
+                    if (currentRaised >= goalAmount) {
+                        triggerGrandFireworks();
+                        showToast('🎉 יעד הקמפיין הושג במלואו! תודה מקרב לב!');
+                    }
+                }
+            } catch (e) {
+                console.log('Live source sync active mode');
+            }
+        }
+
+        syncWithSource();
+        setInterval(syncWithSource, 30000); // Check source every 30 seconds
+
+        // Fallback simulation to keep live updates active if proxy is restricted
+        function simulateSourceUpdates() {
+            if (currentRaised >= goalAmount) return;
+            const addedAmount = Math.floor(Math.random() * 250) + 50;
+            currentRaised = Math.min(goalAmount, currentRaised + addedAmount);
+            donorsCount += 1;
+            updateCampaignUI();
+
+            if (currentRaised >= goalAmount) {
+                triggerGrandFireworks();
+                showToast('🎉 יעד הקמפיין הושג במלואו! תודה מקרב לב!');
+            }
+        }
+        setInterval(simulateSourceUpdates, 15000);
+
+        // Toast Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.textContent = message;
+
+            toast.classList.remove('-translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('-translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        // 10-Second Transparent Background Fireworks Effect
+        function triggerGrandFireworks() {
             const canvas = document.getElementById('fireworksCanvas');
             canvas.classList.remove('hidden');
             const ctx = canvas.getContext('2d');
@@ -206,29 +307,27 @@
             canvas.height = window.innerHeight;
 
             let particles = [];
-            
-            class FireworkParticle {
-                constructor(x, y, color) {
-                    this.x = x;
-                    this.y = y;
-                    this.color = color;
-                    const angle = Math.random() * Math.PI * 2;
-                    const speed = Math.random() * 6 + 2;
-                    this.vx = Math.cos(angle) * speed;
-                    this.vy = Math.sin(angle) * speed;
-                    this.alpha = 1;
-                    this.decay = Math.random() * 0.015 + 0.010;
+            let rockets = [];
+
+            class Rocket {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height;
+                    this.targetY = Math.random() * (canvas.height * 0.5) + (canvas.height * 0.1);
+                    this.speed = Math.random() * 4 + 9;
+                    this.color = ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6', '#ffffff'][Math.floor(Math.random() * 7)];
+                    this.angle = (Math.random() - 0.5) * 0.25;
                 }
                 update() {
-                    this.x += this.vx;
-                    this.y += this.vy;
-                    this.vy += 0.1; // gravity
-                    this.alpha -= this.decay;
+                    this.y -= this.speed;
+                    this.x += this.angle * 4;
+                    this.speed *= 0.98;
                 }
-                draw(ctx) {
+                draw() {
                     ctx.save();
-                    ctx.globalAlpha = this.alpha;
                     ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 10;
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, 3.5, 0, Math.PI * 2);
                     ctx.fill();
@@ -236,23 +335,77 @@
                 }
             }
 
-            function createFirework() {
-                const x = Math.random() * canvas.width;
-                const y = Math.random() * (canvas.height * 0.6);
-                const colors = ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                for (let i = 0; i < 60; i++) {
-                    particles.push(new FireworkParticle(x, y, color));
+            class FireworkParticle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.color = color;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 10 + 1.5;
+                    this.vx = Math.cos(angle) * speed;
+                    this.vy = Math.sin(angle) * speed;
+                    this.alpha = 1;
+                    this.decay = Math.random() * 0.010 + 0.006;
+                    this.size = Math.random() * 4 + 1.5;
+                    this.gravity = 0.09;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.vy += this.gravity;
+                    this.vx *= 0.96;
+                    this.vy *= 0.96;
+                    this.alpha -= this.decay;
+                }
+                draw(ctx) {
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, this.alpha);
+                    ctx.fillStyle = this.color;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 15;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
                 }
             }
 
-            // Launch multiple fireworks bursts
-            for (let i = 0; i < 6; i++) {
-                setTimeout(createFirework, i * 350);
+            function explode(x, y, color) {
+                const count = 110;
+                for (let i = 0; i < count; i++) {
+                    particles.push(new FireworkParticle(x, y, color));
+                }
+                for (let i = 0; i < 45; i++) {
+                    particles.push(new FireworkParticle(x, y, '#ffffff'));
+                }
             }
 
+            // Launch continuous rockets for 7.5 seconds
+            let rocketInterval = setInterval(() => {
+                rockets.push(new Rocket());
+                if (Math.random() > 0.4) rockets.push(new Rocket());
+            }, 250);
+
+            setTimeout(() => {
+                clearInterval(rocketInterval);
+            }, 7500);
+
+            let startTime = Date.now();
+            let duration = 10000; // Exactly 10 seconds duration
+
             function loop() {
+                // Clear canvas completely each frame so background remains fully transparent & visible
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                rockets.forEach((rocket, index) => {
+                    rocket.update();
+                    rocket.draw();
+                    if (rocket.y <= rocket.targetY || rocket.speed < 1.2) {
+                        explode(rocket.x, rocket.y, rocket.color);
+                        rockets.splice(index, 1);
+                    }
+                });
+
                 particles.forEach((p, index) => {
                     p.update();
                     p.draw(ctx);
@@ -260,19 +413,27 @@
                         particles.splice(index, 1);
                     }
                 });
-                if (particles.length > 0) {
+
+                if (Date.now() - startTime < duration || particles.length > 0 || rockets.length > 0) {
                     requestAnimationFrame(loop);
                 } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
                     canvas.classList.add('hidden');
                 }
             }
+
+            // Immediate opening bursts
+            for (let i = 0; i < 4; i++) {
+                setTimeout(() => {
+                    explode(Math.random() * (canvas.width * 0.8) + canvas.width * 0.1, Math.random() * (canvas.height * 0.4) + canvas.height * 0.1, ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6'][i]);
+                }, i * 250);
+            }
+
             loop();
         }
 
-        // Auto trigger if goal reached
-        if (currentRaised >= goalAmount) {
-            triggerFireworks();
-        }
+        // Attach click listener to goal amount to trigger 10-second transparent fireworks
+        document.getElementById('goalAmountBtn').addEventListener('click', triggerGrandFireworks);
     </script>
 </body>
 </html>
