@@ -1,22 +1,18 @@
+<artifact type="html" title="campaign.html" path="campaign.html">
 <!DOCTYPE html>
 <html lang="he" dir="rtl" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>בונים משכן לקהילת חמד"ת השקד | קמפיין גיוס המונים</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts: Heebo -->
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Heebo', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Heebo', 'sans-serif'] },
                     colors: {
                         brand: {
                             sky: '#e0f2fe',
@@ -52,10 +48,8 @@
 </head>
 <body class="selection:bg-amber-500 selection:text-white p-3 sm:p-4">
 
-    <!-- Grand Fireworks Canvas Overlay with Transparent Background -->
     <canvas id="fireworksCanvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full hidden"></canvas>
 
-    <!-- Custom Toast Notification -->
     <div id="toast" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 transform -translate-y-20 opacity-0 transition-all duration-300 bg-brand-darkBlue text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 border border-amber-500/40 text-xs sm:text-sm">
         <i class="fa-solid fa-circle-check text-amber-400"></i>
         <span id="toastMessage">תרומה חדשה התקבלה!</span>
@@ -65,42 +59,38 @@
 
         <section class="w-full bg-white/90 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden border border-sky-200">
             <div class="relative w-full overflow-hidden bg-sky-100 flex items-center justify-center">
-                <img src="pic.png" 
+                <img src="pic.png"
                      onerror="this.src='https://placehold.co/1200x450/e0f2fe/0369a1?text=בונים+משכן+לקהילת+חמדתי+השקד'"
-                     alt="בונים משכן לקהילת חמד״ת השקד" 
+                     alt="בונים משכן לקהילת חמד״ת השקד"
                      class="w-full h-auto object-cover max-h-[220px] sm:max-h-[250px]">
                 <div class="absolute inset-0 bg-gradient-to-t from-sky-950/40 via-transparent to-transparent flex items-end p-4">
                     <div class="text-white">
                         <span class="bg-amber-500/90 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full mb-1 inline-block shadow">קמפיין גיוס המונים</span>
-                        <h2 class="text-xl sm:text-2xl font-black tracking-tight drop-shadow">בונים משכן לקהילת חמד״ת השקד</h2>
+                        <h2 class="text-xl sm:text-2xl font-black tracking-tight drop-shadow">בונים משכן לקהילת חמד"ת השקד</h2>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="w-full bg-white/95 backdrop-blur-md rounded-2xl shadow-lg p-4 sm:p-5 border border-sky-200" id="donate">
-            
+
             <div class="flex items-center justify-between gap-4 mb-3">
-                <!-- Goal (Clicking 700,000 triggers grand fireworks) -->
                 <div class="flex items-center gap-1.5 text-sky-800 font-medium text-xs sm:text-sm">
                     <span id="goalAmountBtn" class="text-slate-900 font-bold font-mono cursor-pointer hover:text-amber-600 transition-colors underline decoration-dotted underline-offset-4" title="לחץ להפעלת זיקוקי חגיגה ענקיים">₪700,000</span>
                     <span>יעד הפרויקט:</span>
                     <i class="fa-solid fa-chart-line text-amber-600"></i>
                 </div>
 
-                <!-- Raised So Far -->
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-coins text-amber-500 text-base"></i>
+                <div class="flex items-center gap-2 cursor-pointer group" onclick="promptManualAmount()" title="לחץ לעריכה ידנית של הסכום">
+                    <i class="fa-solid fa-coins text-amber-500 text-base group-hover:scale-110 transition-transform"></i>
                     <span class="text-xs text-slate-500 font-medium">הושג עד כה</span>
-                    <span class="text-xl sm:text-2xl font-black text-brand-darkBlue font-mono transition-all" id="raisedAmount">₪458,250</span>
+                    <span class="text-xl sm:text-2xl font-black text-brand-darkBlue font-mono transition-all group-hover:text-amber-600" id="raisedAmount">₪464,082</span>
+                    <i class="fa-solid fa-pencil text-[10px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                 </div>
             </div>
 
-            <!-- Progress Bar Track -->
             <div class="relative w-full h-6 bg-slate-200/80 rounded-full overflow-visible p-0.5 shadow-inner mb-4">
-                <!-- Filled Bar anchored to the right -->
                 <div id="progressBar" class="absolute right-0 top-0 bottom-0 bg-[#0c4a6e] rounded-full transition-all duration-1000" style="width: 65%;">
-                    <!-- Floating Percentage Badge positioned at the left tip of the filled bar -->
                     <div id="percentBadgeContainer" class="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 z-20">
                         <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0c4a6e] text-white text-[10px] sm:text-xs font-bold flex items-center justify-center border-2 border-white shadow-md font-mono" id="percentBadge">
                             65%
@@ -109,7 +99,6 @@
                 </div>
             </div>
 
-            <!-- Bottom info & Donors count -->
             <div class="flex items-center justify-between gap-4 pt-2 border-t border-sky-100">
                 <div class="flex items-center gap-2 text-sky-800 font-medium text-xs">
                     <i class="fa-solid fa-users text-amber-600"></i>
@@ -119,7 +108,7 @@
                 <div class="flex items-center gap-3">
                     <a href="https://www.peach-in.com/cmp/aTGwsdcbs" target="_blank" class="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-6 py-2.5 rounded-xl font-bold text-xs sm:text-sm shadow-md shadow-amber-600/30 transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-hand-holding-dollar text-amber-100"></i>
-                        <span>תרום עכשיו באתר המקור</span>
+                        <span>תרמו עכשיו</span>
                     </a>
                 </div>
             </div>
@@ -132,7 +121,6 @@
             <div class="relative z-10">
                 <h3 class="text-base sm:text-lg font-bold mb-3 tracking-wide text-amber-300">הקמפיין יסתיים בעוד</h3>
 
-                <!-- Countdown Units Grid (LTR) -->
                 <div class="grid grid-cols-4 gap-2 max-w-lg mx-auto" dir="ltr">
                     <div class="countdown-box rounded-xl p-2.5 flex flex-col items-center justify-center shadow text-slate-900">
                         <span class="text-xl sm:text-2xl font-black font-mono tracking-wider" id="daysValue">0</span>
@@ -161,7 +149,6 @@
     </footer>
 
     <script>
-        // Target End Date: Sunday, July 26, 2026 at 10:00:00 AM
         const targetDate = new Date('2026-07-26T10:00:00').getTime();
 
         function updateCountdown() {
@@ -190,103 +177,154 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
-        // Campaign Dynamic Values & Live Peach-in Scraping
         const goalAmount = 700000;
-        let currentRaised = 458250;
+        let currentRaised = 464082;
         let donorsCount = 842;
+        let displayedRaised = 0;
+        let displayedDonors = 0;
+        let firstLoad = true;
 
-        function updateCampaignUI() {
+        const savedRaised = localStorage.getItem('hamedet_raised');
+        const savedDonors = localStorage.getItem('hamedet_donors');
+
+        if (savedRaised && parseInt(savedRaised, 10) > 0) {
+            currentRaised = parseInt(savedRaised, 10);
+            displayedRaised = currentRaised;
+        }
+        if (savedDonors && parseInt(savedDonors, 10) > 0) {
+            donorsCount = parseInt(savedDonors, 10);
+            displayedDonors = donorsCount;
+        }
+
+        function animateNumberSlot(element, startVal, endVal, formatFn, duration = 1200) {
+            if (startVal === endVal) {
+                element.textContent = formatFn(endVal);
+                return;
+            }
+
+            element.classList.add('inline-block', 'transition-all', 'duration-200', 'scale-110', 'text-amber-500');
+
+            const startTime = performance.now();
+
+            function step(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                const easedProgress = 1 - Math.pow(1 - progress, 3);
+                const currentVal = Math.floor(startVal + (endVal - startVal) * easedProgress);
+
+                element.textContent = formatFn(currentVal);
+
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    element.textContent = formatFn(endVal);
+                    setTimeout(() => {
+                        element.classList.remove('scale-110', 'text-amber-500');
+                    }, 200);
+                }
+            }
+
+            requestAnimationFrame(step);
+        }
+
+        function updateCampaignUI(animate = false) {
             const percent = Math.min(100, Math.round((currentRaised / goalAmount) * 100));
 
-            document.getElementById('raisedAmount').textContent = '₪' + currentRaised.toLocaleString();
-            document.getElementById('donorsCount').textContent = donorsCount + ' תורמים';
+            if (animate && (displayedRaised !== currentRaised || displayedDonors !== donorsCount)) {
+                if (displayedRaised !== currentRaised) {
+                    animateNumberSlot(
+                        document.getElementById('raisedAmount'),
+                        displayedRaised,
+                        currentRaised,
+                        (val) => '₪' + val.toLocaleString()
+                    );
+                    displayedRaised = currentRaised;
+                }
+                if (displayedDonors !== donorsCount) {
+                    animateNumberSlot(
+                        document.getElementById('donorsCount'),
+                        displayedDonors,
+                        donorsCount,
+                        (val) => val.toLocaleString() + ' תורמים'
+                    );
+                    displayedDonors = donorsCount;
+                }
+            } else {
+                document.getElementById('raisedAmount').textContent = '₪' + currentRaised.toLocaleString();
+                document.getElementById('donorsCount').textContent = donorsCount.toLocaleString() + ' תורמים';
+                displayedRaised = currentRaised;
+                displayedDonors = donorsCount;
+            }
 
             const progressBar = document.getElementById('progressBar');
             progressBar.style.width = percent + '%';
             document.getElementById('percentBadge').textContent = percent + '%';
         }
 
-        updateCampaignUI();
+        const STATS_URL = 'https://api.peach-in.com/v3/payment/campaign/stats';
+        const STATS_BODY = JSON.stringify({ accountId: 'aTGw', campaignId: 'AqQq', mappingProductAmountField: null });
 
-        // Live Synchronization with https://www.peach-in.com/cmp/aTGwsdcbs
         async function syncWithSource() {
             try {
-                const proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://www.peach-in.com/cmp/aTGwsdcbs');
-                const response = await fetch(proxyUrl);
+                const response = await fetch(STATS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+                    body: STATS_BODY,
+                    cache: 'no-store'
+                });
+
                 if (!response.ok) return;
-                const htmlText = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlText, 'text/html');
-                
-                let foundAmount = null;
-                let foundDonors = null;
 
-                // Search text nodes for amounts
-                const textWalker = document.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
-                let node;
-                while (node = textWalker.nextNode()) {
-                    let text = node.nodeValue.trim();
-                    if (text.includes('₪') || text.includes('ש״ח') || text.includes('נתרם')) {
-                        const match = text.match(/[\d,]+/);
-                        if (match) {
-                            let cleanNum = parseInt(match[0].replace(/,/g, ''), 10);
-                            if (cleanNum > 1000 && cleanNum <= 1000000 && !foundAmount) {
-                                foundAmount = cleanNum;
-                            }
-                        }
-                    }
+                const data = await response.json();
+                const newRaised = Math.round(Number(data.totalDonationSum) || 0);
+                const newDonors = Number(data.totalDonationCount) || 0;
+
+                if (newRaised <= 0) return;
+
+                const diff = firstLoad ? 0 : newRaised - currentRaised;
+                currentRaised = newRaised;
+                if (newDonors > 0) donorsCount = newDonors;
+
+                localStorage.setItem('hamedet_raised', currentRaised);
+                localStorage.setItem('hamedet_donors', donorsCount);
+
+                updateCampaignUI(!firstLoad);
+                if (firstLoad) { firstLoad = false; }
+
+                if (diff > 0) {
+                    showToast(`תרומה חדשה התקבלה! (+₪${diff.toLocaleString()})`);
                 }
-
-                // Search for donors count
-                const allElements = doc.querySelectorAll('*');
-                for (let el of allElements) {
-                    let t = el.textContent.trim();
-                    if (t.includes('תורמים')) {
-                        const dMatch = t.match(/(\d+)\s*תורמים/);
-                        if (dMatch) {
-                            foundDonors = parseInt(dMatch[1], 10);
-                        }
-                    }
+                if (currentRaised >= goalAmount) {
+                    triggerGrandFireworks();
+                    showToast('🎉 יעד הקמפיין הושג במלואו! תודה מקרב לב!');
                 }
+            } catch (e) {
+                console.log('Background sync skipped:', e);
+            }
+        }
 
-                if (foundAmount && foundAmount !== currentRaised) {
-                    const diff = foundAmount - currentRaised;
-                    currentRaised = foundAmount;
-                    if (foundDonors) donorsCount = foundDonors;
-                    updateCampaignUI();
-                    if (diff > 0) {
-                        showToast(`תרומה חדשה התקבלה! (+₪${diff.toLocaleString()})`);
-                    }
+        window.promptManualAmount = function() {
+            const input = prompt('הכנס את הסכום העדכני שמופיע ב-Peach-in (למשל: 464082):', currentRaised);
+            if (input !== null) {
+                const cleaned = parseInt(input.replace(/[^\\d]/g, ''), 10);
+                if (!isNaN(cleaned) && cleaned >= 0) {
+                    currentRaised = cleaned;
+                    localStorage.setItem('hamedet_raised', currentRaised);
+                    updateCampaignUI(true);
+                    showToast(`הסכום עודכן בהצלחה ל-₪${currentRaised.toLocaleString()}`);
                     if (currentRaised >= goalAmount) {
                         triggerGrandFireworks();
                         showToast('🎉 יעד הקמפיין הושג במלואו! תודה מקרב לב!');
                     }
                 }
-            } catch (e) {
-                console.log('Live source sync active mode');
             }
-        }
+        };
 
+        updateCampaignUI(false);
         syncWithSource();
-        setInterval(syncWithSource, 30000); // Check source every 30 seconds
+        setInterval(syncWithSource, 15000);
 
-        // Fallback simulation to keep live updates active if proxy is restricted
-        function simulateSourceUpdates() {
-            if (currentRaised >= goalAmount) return;
-            const addedAmount = Math.floor(Math.random() * 250) + 50;
-            currentRaised = Math.min(goalAmount, currentRaised + addedAmount);
-            donorsCount += 1;
-            updateCampaignUI();
-
-            if (currentRaised >= goalAmount) {
-                triggerGrandFireworks();
-                showToast('🎉 יעד הקמפיין הושג במלואו! תודה מקרב לב!');
-            }
-        }
-        setInterval(simulateSourceUpdates, 15000);
-
-        // Toast Helper
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toastMessage');
@@ -298,7 +336,6 @@
             }, 3500);
         }
 
-        // 10-Second Transparent Background Fireworks Effect
         function triggerGrandFireworks() {
             const canvas = document.getElementById('fireworksCanvas');
             canvas.classList.remove('hidden');
@@ -380,7 +417,6 @@
                 }
             }
 
-            // Launch continuous rockets for 7.5 seconds
             let rocketInterval = setInterval(() => {
                 rockets.push(new Rocket());
                 if (Math.random() > 0.4) rockets.push(new Rocket());
@@ -391,10 +427,9 @@
             }, 7500);
 
             let startTime = Date.now();
-            let duration = 10000; // Exactly 10 seconds duration
+            let duration = 10000;
 
             function loop() {
-                // Clear canvas completely each frame so background remains fully transparent & visible
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
                 rockets.forEach((rocket, index) => {
@@ -422,7 +457,6 @@
                 }
             }
 
-            // Immediate opening bursts
             for (let i = 0; i < 4; i++) {
                 setTimeout(() => {
                     explode(Math.random() * (canvas.width * 0.8) + canvas.width * 0.1, Math.random() * (canvas.height * 0.4) + canvas.height * 0.1, ['#f59e0b', '#ef4444', '#3b82f6', '#10b981', '#ec4899', '#8b5cf6'][i]);
@@ -432,8 +466,8 @@
             loop();
         }
 
-        // Attach click listener to goal amount to trigger 10-second transparent fireworks
         document.getElementById('goalAmountBtn').addEventListener('click', triggerGrandFireworks);
     </script>
 </body>
 </html>
+</artifact>
